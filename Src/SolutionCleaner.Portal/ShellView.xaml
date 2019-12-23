@@ -1,0 +1,41 @@
+﻿<Window x:Class="SolutionCleaner.ShellView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SolutionCleaner"
+        xmlns:mvvm="http://prismlibrary.com/"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen" WindowState="Normal"
+        mvvm:ViewModelLocator.AutoWireViewModel="True"
+        Height="170" Width="469" ResizeMode="CanMinimize"
+        Icon="Resources/clean.ico"
+        Title="{Binding Title}">
+
+    <Grid Height="120">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Label Grid.Column="0" Grid.Row="0" Content="Directory Path:" HorizontalAlignment="Left" FontSize="12" />
+        <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Directory}" Width="330" Height="19"></TextBox>
+
+        <Label Grid.Column="0" Grid.Row="1" Content="File Extensions:" HorizontalAlignment="Left" FontSize="12" />
+        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding FileExtensions}" Width="330" Height="19"></TextBox>
+
+        <Label Grid.Column="0" Grid.Row="2" Content="Directory Names:" HorizontalAlignment="Left" FontSize="12" />
+        <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding DirectoryNames}" Width="330" Height="19"></TextBox>
+
+        <Button Grid.ColumnSpan="2" Grid.Row="3"  Command="{Binding CleanCommand}" Width="100" Height="30"  Cursor="Hand">
+            <TextBlock>Clean it <Bold>now</Bold>!!!</TextBlock>
+        </Button>
+    </Grid>
+
+</Window>
