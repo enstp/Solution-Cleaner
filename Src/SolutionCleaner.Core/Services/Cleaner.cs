@@ -23,7 +23,7 @@ namespace SolutionCleaner.Core.Services
 
             foreach (var fileInfo in directory.GetFiles())
             {
-                if (fileExtensions.Contains($"*{fileInfo.Extension}"))
+                if (fileExtensions.Any(e => fileInfo.Name.ToLower().EndsWith(e.ToLower())))
                 {
                     if (!_fileService.ForceDelete(fileInfo))
                     {
@@ -42,7 +42,7 @@ namespace SolutionCleaner.Core.Services
 
             foreach (var directoryInfo in directory.GetDirectories())
             {
-                if (directoryNames.Contains(directoryInfo.Name))
+                if (directoryNames.Any(e => directoryInfo.Name.ToLower().EndsWith(e.ToLower())))
                 {
                     if (!_fileService.ForceDelete(directoryInfo))
                     {
