@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29519.181
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SolutionCleaner.Portal", "SolutionCleaner.Portal\SolutionCleaner.Portal.csproj", "{F96EF98C-E8B8-4D99-92DD-C63B002C8E94}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SolutionCleaner.Portal", "Src\SolutionCleaner.Portal\SolutionCleaner.Portal.csproj", "{F96EF98C-E8B8-4D99-92DD-C63B002C8E94}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolutionCleaner.Core", "SolutionCleaner.Core\SolutionCleaner.Core.csproj", "{9462CE25-D6BC-4EAE-9B72-12E31ED9CC7C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolutionCleaner.Core", "Src\SolutionCleaner.Core\SolutionCleaner.Core.csproj", "{9462CE25-D6BC-4EAE-9B72-12E31ED9CC7C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
