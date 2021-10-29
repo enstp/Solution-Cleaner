@@ -19,6 +19,7 @@ namespace SolutionCleaner
         private string directory;
         private string fileExtensions;
         private string directoryNames;
+        private string resultMessage;
 
         #endregion
 
@@ -40,6 +41,7 @@ namespace SolutionCleaner
         public static readonly BusinessProperty<string> DirectoryProperty = RegisterProperty(x => x.Directory);
         public static readonly BusinessProperty<string> FileExtensionsProperty = RegisterProperty(x => x.FileExtensions);
         public static readonly BusinessProperty<string> DirectoryNamesProperty = RegisterProperty(x => x.DirectoryNames);
+        public static readonly BusinessProperty<string> ResultMessageProperty = RegisterProperty(x => x.ResultMessage);
 
         #endregion
 
@@ -66,6 +68,12 @@ namespace SolutionCleaner
             set => PropertySetter(FileExtensionsProperty, ref fileExtensions, value);
         }
 
+        public string ResultMessage
+        {
+            get => resultMessage;
+            set => PropertySetter(ResultMessageProperty, ref resultMessage, value);
+        }
+
         #endregion
 
         #region Commands
@@ -78,6 +86,7 @@ namespace SolutionCleaner
         
         private void CleanFiles(object parameter)
         {
+            ResultMessage = string.Empty;
             var dirs = DirectoryNames?.SplitBy(";");
             var flExtensions = FileExtensions?.SplitBy(";");
             var directoryInfo = new DirectoryInfo(Directory);
@@ -88,8 +97,9 @@ namespace SolutionCleaner
             else
             {
                 int reportedFaultedFiles = 0, reportedFaultedDirectories = 0;
-                _cleaner.RecursiveFilesClean(directoryInfo, flExtensions, ref reportedFaultedFiles);
-                _cleaner.RecursiveDirectoriesClean(directoryInfo, dirs, ref reportedFaultedDirectories);
+                int reportedSuccessFiles = 0, reportedSuccessDirectories = 0;
+                _cleaner.RecursiveFilesClean(directoryInfo, flExtensions, ref reportedSuccessFiles, ref reportedFaultedFiles);
+                _cleaner.RecursiveDirectoriesClean(directoryInfo, dirs, ref reportedSuccessDirectories, ref reportedFaultedDirectories);
                 if (reportedFaultedFiles > 0)
                 {
                     _reporter.ReportException(new Exception($"Operation completed, but {reportedFaultedFiles} files could not be deleted!"));
@@ -98,6 +108,8 @@ namespace SolutionCleaner
                 {
                     _reporter.ReportException(new Exception($"Operation completed, but {reportedFaultedDirectories} folders could not be deleted!"));
                 }
+
+                ResultMessage = $"{reportedSuccessFiles} files deleted. {reportedSuccessDirectories} folders deleted";
             }
         }
 

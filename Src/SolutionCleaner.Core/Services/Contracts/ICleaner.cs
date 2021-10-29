@@ -5,8 +5,8 @@ namespace SolutionCleaner.Core.Services.Contracts
 {
     public interface ICleaner
     {
-        void RecursiveFilesClean(DirectoryInfo directory, IEnumerable<string> fileExtensions, ref int faultedFiles);
+        void RecursiveFilesClean(DirectoryInfo directory, IEnumerable<string> fileExtensions, ref int successFiles, ref int faultedFiles);
 
-        void RecursiveDirectoriesClean(DirectoryInfo directory, IEnumerable<string> fileExtensions, ref int faultedDirectories);
+        void RecursiveDirectoriesClean(DirectoryInfo directory, IEnumerable<string> fileExtensions, ref int successDirectories, ref int faultedDirectories);
     }
 }

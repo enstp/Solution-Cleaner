@@ -22,7 +22,7 @@ namespace SolutionCleaner.Core.Services
             try
             {
                 fileInfo.Delete();
-                Thread.Sleep(300);
+                Thread.Sleep(500);
                 return true;
             }
             catch
@@ -36,7 +36,7 @@ namespace SolutionCleaner.Core.Services
             try
             {
                 directoryInfo.Delete(true);
-                Thread.Sleep(300);
+                Thread.Sleep(500);
                 return true;
             }
             catch
