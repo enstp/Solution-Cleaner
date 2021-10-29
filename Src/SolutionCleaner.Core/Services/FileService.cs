@@ -3,18 +3,12 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading;
 using SolutionCleaner.Core.Services.Contracts;
+using SolutionCleaner.Core.Utils;
 
 namespace SolutionCleaner.Core.Services
 {
     public class FileService : IFileService
     {
-        [DllImport("kernel32.dll", SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        static extern bool DeleteFile(string lpFileName);
-
-        [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
-        public static extern bool RemoveDirectory(string path);
-
         public void EnsureDirectoryExists(string dirPath)
         {
             if (!Directory.Exists(dirPath))
@@ -27,8 +21,8 @@ namespace SolutionCleaner.Core.Services
         {
             try
             {
-                // fileInfo.Delete(); // slowest solution
-                DeleteFile(fileInfo.FullName);
+                fileInfo.Delete();
+                Thread.Sleep(300);
                 return true;
             }
             catch
@@ -41,8 +35,8 @@ namespace SolutionCleaner.Core.Services
         {
             try
             {
-                // directoryInfo.Delete(true); // slowest solution
-                RemoveDirectory(directoryInfo.FullName);
+                directoryInfo.Delete(true);
+                Thread.Sleep(300);
                 return true;
             }
             catch
