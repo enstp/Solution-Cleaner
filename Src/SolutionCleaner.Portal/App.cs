@@ -27,6 +27,7 @@ namespace SolutionCleaner
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.Register<IFileService, FileService>();
+            containerRegistry.Register<ILocalStorage, LocalStorage>();
             containerRegistry.Register<IReporter, Reporter>();
             containerRegistry.Register<ICleaner, Cleaner>();
 

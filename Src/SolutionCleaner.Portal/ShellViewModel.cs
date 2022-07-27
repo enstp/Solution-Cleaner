@@ -2,6 +2,7 @@
 using System.IO;
 using System.Reflection;
 using Prism.Commands;
+using SolutionCleaner.Core.Constants;
 using SolutionCleaner.Core.Models;
 using SolutionCleaner.Core.Services.Contracts;
 using SolutionCleaner.Core.Utils;
@@ -12,6 +13,7 @@ namespace SolutionCleaner
     {
         private readonly ICleaner _cleaner;
         private readonly IReporter _reporter;
+        private readonly ILocalStorage _localStorage;
 
         #region Storage Fields
 
@@ -23,13 +25,15 @@ namespace SolutionCleaner
 
         #endregion
 
-        public ShellViewModel(ICleaner cleaner, IReporter reporter)
+        public ShellViewModel(ICleaner cleaner, IReporter reporter, ILocalStorage localStorage)
         {
             _cleaner = cleaner;
             _reporter = reporter;
+            _localStorage = localStorage;
 
             Title = $"Solution Cleaner {Assembly.GetExecutingAssembly().GetName().Version.ToString(3)}";
-            Directory = AppDomain.CurrentDomain.BaseDirectory;
+            Directory = _localStorage.ReadString(StorageConstants.CurrentDirectory) ?? 
+                        AppDomain.CurrentDomain.BaseDirectory;
             FileExtensions = ".csproj.user; ";
             DirectoryNames = "bin; obj; ";
             CleanCommand = new DelegateCommand<object>(CleanFiles);
@@ -96,6 +100,7 @@ namespace SolutionCleaner
             }
             else
             {
+	            _localStorage.WriteString(StorageConstants.CurrentDirectory, Directory);
                 int reportedFaultedFiles = 0, reportedFaultedDirectories = 0;
                 int reportedSuccessFiles = 0, reportedSuccessDirectories = 0;
                 _cleaner.RecursiveFilesClean(directoryInfo, flExtensions, ref reportedSuccessFiles, ref reportedFaultedFiles);
