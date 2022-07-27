@@ -32,7 +32,7 @@ namespace SolutionCleaner
             _localStorage = localStorage;
 
             Title = $"Solution Cleaner {Assembly.GetExecutingAssembly().GetName().Version.ToString(3)}";
-            Directory = _localStorage.ReadString(StorageConstants.CurrentDirectory) ?? 
+            Directory = _localStorage.ReadString(StorageConstants.CurrentDirectory)?.Trim() ?? 
                         AppDomain.CurrentDomain.BaseDirectory;
             FileExtensions = ".csproj.user; ";
             DirectoryNames = "bin; obj; ";
